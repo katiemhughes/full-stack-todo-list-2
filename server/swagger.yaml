@@ -1,0 +1,122 @@
+swagger: "2.0"
+info:
+  description: "A full stack to do list application"
+  version: "1.0.0"
+  title: "To Do List App"
+host: "localhost:5000"
+basePath: "/"
+schemes:
+- "http"
+paths:
+  /todos:
+    get:
+      summary: "Getting all todos"
+      produces: 
+      - "application/json"
+      responses:
+        200:
+          description: "List of all todos"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/TodoListItem"
+    post:
+      summary: "Create a new todo"
+      produces: 
+      - "application/json"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "todo item to add"
+        required: true
+        schema: 
+          $ref: "#/definitions/TodoListData"
+      responses:
+        201:
+          description: "Todo that has been added"
+          schema:
+            $ref: "#/definitions/TodoListItem"
+        400:
+          description: "Invalid todo"
+  /todos/{id}:
+    delete:
+      summary: "Deletes a todo"
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        description: "id of the single todo"
+        type: string
+      responses:
+        204:
+          description: "Deleted to do list item"
+        404:
+          description: "Has not found an item to delete"
+    get:
+      summary: "Get a single todo"
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        description: "id of the single todo"
+        type: string
+      responses: 
+    put:
+      summary: "Replace a single todo"
+      produces: 
+      - "application/json"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        description: "id of the single todo"
+        type: string
+      - in: "body"
+        name: "body"
+        description: "todo item to add"
+        required: true
+        schema: 
+          properties: 
+            name:
+              type: string
+              description: "name of task"
+            completed:
+              type: boolean
+              description: "mark task as completed"
+
+
+definitions:
+#what to send as the response body.
+  TodoListItem:
+    type: object
+    description: "single todo item"
+    properties:
+      id:
+        type: string
+        description: "id of single todo"
+      name:
+        type: string
+        description: "name of task"
+      completed:
+        type: boolean
+        description: "is the task completed?"
+
+#what to expect in the request body.        
+  TodoListData: 
+    type: object
+    description: "todo item to add"
+    properties: 
+      name:
+        type: string
+        description: "name of task"
+      completed:
+        type: boolean
+        description: "mark task as completed"
