@@ -26,11 +26,23 @@ class ToDoList extends Component {
   };
 
   componentDidMount() {
-    axios.get("http://localhost:5000/todolistfullstack/v1/todos").then((response) => {
+    axios.get("http://localhost:5000/todolistfullstack/v1/todos/{id}").then((response) => {
       console.log(response.data.data)
       let data = [];
       console.log(response.data.data.length)
       for (let i = 0; i < response.data.data.length; i++){
+        data.push(response.data.data[i].todo)
+      }
+      this.setState({todos: data})
+    });
+  }
+
+  componentDidUpdate() {
+    axios.get("http://localhost:5000/todolistfullstack/v1/todos/").then((response) => {
+      console.log(response.data.data)
+      let data = [];
+      console.log(response.data.data.length)
+      for (let i = 0; i < response.data.data.length; i++) {
         data.push(response.data.data[i].todo)
       }
       this.setState({todos: data})
