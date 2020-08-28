@@ -6,7 +6,8 @@ const pass = process.env.DB_PASS;
 const dbName = process.env.DB_NAME;
 const dbCluster = process.env.DB_CLUSTER;
 
-const mongoDB = `mongodb+srv://${user}:${pass}@${dbCluster}.vqzc2.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+const mongoDB = 
+`mongodb+srv://${user}:${pass}@firstcluster.vqzc2.mongodb.net/${dbName}?retryWrites=true&w=majority`;
 
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true})
 

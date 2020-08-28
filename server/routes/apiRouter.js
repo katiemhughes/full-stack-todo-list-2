@@ -1,21 +1,20 @@
-const todoRouter = require("express").Router();
-
-const todoCtrl = require("../controllers/todo-ctrl");
+const apiRouter = require("express").Router();
+//const todoCtrl = require("../controllers/todo-ctrl");
+const {getAllTodos, addTodo} = require("../controllers/todo-ctrl");
 
 //post a todo
 
-todoRouter.route("/todos")
-    .post(todoCtrl.addTodo)
-
+apiRouter.route("/todos")
+    .post(addTodo)
+    .get(getAllTodos)
+    .all((req, res, next) => {
+        res.status(405).send("Method not allowed")
+    });
 //todoRouter.post("/todos", (req, res) => {
     //res.send("You have posted a todo")
 //})
 
 //get all tasks
-
-todoRouter.route("/todos")
-    .get(todoCtrl.getAllTodos)
-
 //todoRouter.get("/todos", (req, res) => {
     //res.send("You have retrieved all your todos")
 //})
@@ -40,4 +39,4 @@ todoRouter.route("/todos")
 //todo("/", todoCtrl.createItem)
 //todoRouter.get("/", todoCtrl.getTodos);
 
-module.exports = todoRouter;
+module.exports = apiRouter;
